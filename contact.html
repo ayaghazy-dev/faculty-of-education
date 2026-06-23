@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تواصل معنا - كلية التربية جامعة دمياط</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:       #1a1a6e;
+      --navy-dark:  #12124f;
+      --navy-light: #2a2a8e;
+      --gold:       #c8a84b;
+      --white:      #ffffff;
+      --light:      #f4f5fb;
+      --mid-gray:   #dde0ef;
+      --text:       #1e1e3a;
+      --muted:      #666;
+      --error:      #c0392b;
+      --success:    #1e8449;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logos { display: flex; align-items: center; gap: 10px; }
+
+    .logo-circle {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--gold);
+      overflow: hidden;
+    }
+
+    .logo-circle svg { width: 36px; height: 36px; }
+
+    .nav-title { font-size: 24px; font-weight: 700; letter-spacing: 0.5px; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 55%, #28288a 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 52px 24px 44px;
+      border-bottom: 4px solid var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.02) 40px,
+        rgba(255,255,255,0.02) 80px
+      );
+    }
+
+    .hero h1 { font-size: 34px; font-weight: 700; margin-bottom: 10px; position: relative; }
+    .hero p  { font-size: 15px; opacity: 0.82; position: relative; }
+
+    /* ===== MAIN GRID ===== */
+    .page-body {
+      max-width: 1060px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1.55fr;
+      gap: 28px;
+      flex: 1;
+    }
+
+    /* ===== INFO COLUMN ===== */
+    .info-col { display: flex; flex-direction: column; gap: 22px; }
+
+    .info-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 26px 24px;
+      border: 1px solid var(--mid-gray);
+      box-shadow: 0 2px 12px rgba(26,26,110,0.07);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .info-card:nth-child(1) { animation-delay: .05s; }
+    .info-card:nth-child(2) { animation-delay: .15s; }
+    .info-card:nth-child(3) { animation-delay: .25s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--mid-gray);
+      font-size: 14px;
+    }
+
+    .contact-item:last-child { border-bottom: none; }
+
+    .contact-icon {
+      width: 36px; height: 36px;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      color: var(--white);
+    }
+
+    .contact-detail { line-height: 1.6; }
+    .contact-label  { font-size: 11px; color: var(--muted); margin-bottom: 1px; }
+    .contact-value  { font-weight: 600; color: var(--text); }
+
+    /* Social links */
+    .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .social-btn {
+      display: flex; align-items: center; gap: 9px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--white);
+      transition: opacity 0.2s, transform 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .social-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+    .social-btn.fb   { background: #1877f2; }
+    .social-btn.tw   { background: #1da1f2; }
+    .social-btn.ig   { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
+    .social-btn.tg   { background: #229ed9; }
+
+    /* Map placeholder */
+    .map-box {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--mid-gray);
+      height: 160px;
+      background: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+
+    .map-box:hover { background: var(--mid-gray); }
+    .map-box span.map-icon { font-size: 36px; }
+
+    /* ===== FORM COLUMN ===== */
+    .form-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 34px 36px;
+      border: 1px solid var(--mid-gray);
+      box-shadow: 0 2px 12px rgba(26,26,110,0.07);
+      animation: fadeUp 0.5s ease 0.1s both;
+    }
+
+    .form-card .card-heading { font-size: 19px; }
+
+    .field-group { margin-bottom: 18px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    label .req { color: var(--error); margin-right: 3px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--mid-gray);
+      border-radius: 7px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fafbff;
+      color: var(--text);
+      direction: rtl;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(26,26,110,0.1);
+      background: var(--white);
+    }
+
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.09);
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      margin-top: 4px;
+      display: none;
+    }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Subject tags */
+    .subject-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      padding: 7px 14px;
+      border: 1.5px solid var(--mid-gray);
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+      color: var(--text);
+      background: #fafbff;
+    }
+
+    .tag:hover { border-color: var(--navy); color: var(--navy); }
+    .tag.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+    /* Char counter */
+    .msg-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .char-count { font-size: 12px; color: var(--muted); }
+    .char-count.warn { color: var(--error); }
+
+    /* Submit btn */
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-submit:hover {
+      background: var(--navy-light);
+      box-shadow: 0 5px 18px rgba(26,26,110,0.28);
+    }
+
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Spinner */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== SUCCESS OVERLAY ===== */
+    .success-overlay {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .success-overlay.show { display: flex; }
+
+    .success-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      margin-bottom: 20px;
+      animation: popIn 0.4s cubic-bezier(.175,.885,.32,1.275);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .success-overlay h3 { font-size: 22px; color: var(--navy); margin-bottom: 10px; }
+    .success-overlay p  { color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    .btn-reset {
+      margin-top: 22px;
+      padding: 10px 28px;
+      background: var(--light);
+      border: 1.5px solid var(--mid-gray);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .btn-reset:hover { background: var(--mid-gray); }
+
+    /* ===== FAQ ===== */
+    .faq-section {
+      max-width: 1060px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+
+    .faq-heading {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: 9px;
+      border: 1px solid var(--mid-gray);
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(26,26,110,0.05);
+    }
+
+    .faq-q {
+      padding: 15px 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+      user-select: none;
+    }
+
+    .faq-q:hover { background: var(--light); }
+    .faq-q .arrow { transition: transform 0.3s; font-size: 12px; color: var(--navy); }
+    .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 0 20px;
+    }
+
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 20px 16px; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 720px) {
+      .page-body { grid-template-columns: 1fr; }
+      .field-row  { grid-template-columns: 1fr; }
+      .nav-title  { font-size: 18px; }
+      .form-card  { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logos">
+    <div class="logo-circle">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" fill="#1a1a6e"/>
+        <text x="20" y="26" text-anchor="middle" font-size="13" fill="white" font-weight="bold">جد</text>
+      </svg>
+    </div>
+    <div class="logo-circle">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" fill="#1a1a6e"/>
+        <polygon points="20,8 30,28 10,28" fill="white"/>
+        <text x="20" y="37" text-anchor="middle" font-size="7" fill="white">Damietta</text>
+      </svg>
+    </div>
+  </div>
+  <div class="nav-title">كلية التربية ـ جامعة دمياط</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>📬 تواصل معنا</h1>
+  <p>نحن هنا للإجابة على استفساراتك — تواصل معنا في أي وقت</p>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- INFO COLUMN -->
+  <div class="info-col">
+
+    <!-- Contact Details -->
+    <div class="info-card">
+      <div class="card-heading">📍 بيانات التواصل</div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-detail">
+          <div class="contact-label">العنوان</div>
+          <div class="contact-value">كلية التربية، جامعة دمياط<br/>دمياط الجديدة، مصر</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-detail">
+          <div class="contact-label">الهاتف</div>
+          <div class="contact-value">057-2403497</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📠</div>
+        <div class="contact-detail">
+          <div class="contact-label">الفاكس</div>
+          <div class="contact-value">057-2403496</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-detail">
+          <div class="contact-label">البريد الإلكتروني</div>
+          <div class="contact-value">education@du.edu.eg</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-detail">
+          <div class="contact-label">مواعيد العمل</div>
+          <div class="contact-value">الأحد – الخميس<br/>من 9 صباحاً حتى 3 مساءً</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social -->
+    <div class="info-card">
+      <div class="card-heading">🌐 مواقع التواصل الاجتماعي</div>
+      <div class="social-grid">
+        <a class="social-btn fb" href="#" onclick="return false;">
+          <span>f</span> Education Uni
+        </a>
+        <a class="social-btn tw" href="#" onclick="return false;">
+          <span>𝕏</span> education Uni@
+        </a>
+        <a class="social-btn ig" href="#" onclick="return false;">
+          <span>📷</span> Education Uni
+        </a>
+        <a class="social-btn tg" href="#" onclick="return false;">
+          <span>✈️</span> education Uni@
+        </a>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="info-card" style="padding: 20px;">
+      <div class="card-heading">🗺️ الموقع الجغرافي</div>
+      <a class="map-box" href="https://maps.google.com/?q=كلية+التربية+جامعة+دمياط" target="_blank">
+        <span class="map-icon">📌</span>
+        <span>انقر لعرض الموقع على الخريطة</span>
+        <span style="font-size:11px;">كلية التربية، دمياط الجديدة</span>
+      </a>
+    </div>
+
+  </div><!-- /info-col -->
+
+  <!-- FORM COLUMN -->
+  <div class="form-card">
+
+    <!-- Form content -->
+    <div id="formContent">
+      <div class="card-heading">✍️ أرسل لنا رسالة</div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>الاسم الكامل <span class="req">*</span></label>
+          <input type="text" id="name" placeholder="أدخل اسمك" />
+          <div class="field-error" id="err-name">الاسم مطلوب</div>
+        </div>
+        <div class="field-group">
+          <label>رقم الهاتف</label>
+          <input type="tel" id="phone" placeholder="01XXXXXXXXX" />
+          <div class="field-error" id="err-phone">رقم الهاتف غير صحيح</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>البريد الإلكتروني <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="example@email.com" />
+        <div class="field-error" id="err-email">البريد الإلكتروني غير صحيح</div>
+      </div>
+
+      <div class="field-group">
+        <label>الصفة</label>
+        <select id="role">
+          <option value="">-- اختر --</option>
+          <option>طالب</option>
+          <option>خريج</option>
+          <option>عضو هيئة تدريس</option>
+          <option>موظف إداري</option>
+          <option>ولي أمر</option>
+          <option>زائر / مهتم</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>موضوع الرسالة <span class="req">*</span></label>
+        <div class="subject-tags" id="subjectTags">
+          <span class="tag" data-val="استفسار عام">استفسار عام</span>
+          <span class="tag" data-val="شكوى">شكوى</span>
+          <span class="tag" data-val="اقتراح">اقتراح</span>
+          <span class="tag" data-val="طلب وثيقة">طلب وثيقة</span>
+          <span class="tag" data-val="تسجيل وقبول">تسجيل وقبول</span>
+          <span class="tag" data-val="أخرى">أخرى</span>
+        </div>
+        <div class="field-error" id="err-subject">يرجى اختيار موضوع</div>
+      </div>
+
+      <div class="field-group">
+        <label>نص الرسالة <span class="req">*</span></label>
+        <textarea id="message" maxlength="500" placeholder="اكتب رسالتك هنا..." oninput="countChars()"></textarea>
+        <div class="msg-footer">
+          <div class="field-error" id="err-message" style="margin:0;">الرسالة مطلوبة</div>
+          <div class="char-count" id="charCount">0 / 500</div>
+        </div>
+      </div>
+
+      <div class="field-group" style="display:flex;align-items:center;gap:10px;">
+        <input type="checkbox" id="copyMe" style="width:auto;accent-color:var(--navy);cursor:pointer;" />
+        <label for="copyMe" style="margin:0;font-weight:400;cursor:pointer;color:var(--muted);">
+          أرسل لي نسخة من الرسالة على بريدي الإلكتروني
+        </label>
+      </div>
+
+      <button class="btn-submit" id="submitBtn" onclick="sendMessage()">
+        <div class="spinner" id="spinner"></div>
+        <span id="btnText">📨 إرسال الرسالة</span>
+      </button>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-circle">✅</div>
+      <h3>تم إرسال رسالتك بنجاح!</h3>
+      <p>شكراً لتواصلك مع كلية التربية.<br/>سيتم الرد على استفسارك خلال <strong>2-3 أيام عمل</strong> على البريد الإلكتروني الذي أدخلته.</p>
+      <button class="btn-reset" onclick="resetForm()">↩ إرسال رسالة أخرى</button>
+    </div>
+
+  </div><!-- /form-card -->
+</div><!-- /page-body -->
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-heading">❓ الأسئلة الشائعة</div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      ما هي مواعيد الدراسة في كلية التربية؟
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      تبدأ الدراسة في الفصل الدراسي الأول من أكتوبر حتى يناير، والفصل الثاني من فبراير حتى يونيو. يمكن الاطلاع على الجدول الدراسي التفصيلي عبر موقع الكلية أو من خلال التواصل مع مكتب الشؤون الطلابية.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      كيف يمكنني الحصول على شهادة أو وثيقة رسمية؟
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      يمكنك التقدم بطلب الوثائق الرسمية عن طريق مكتب شؤون الطلاب في الكلية، أو إرسال طلبك إلى البريد الإلكتروني الرسمي مع توضيح نوع الوثيقة المطلوبة وبياناتك الشخصية.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      هل يمكن التقديم للدراسات العليا عبر البريد الإلكتروني؟
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      يمكنك الاستفسار عبر البريد الإلكتروني، لكن التقديم الرسمي يتم من خلال بوابة جامعة دمياط الإلكترونية أو بزيارة إدارة الدراسات العليا في الكلية مباشرة.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      ما هو وقت الرد على الرسائل الإلكترونية؟
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      يتم الرد على الرسائل الإلكترونية خلال 2 إلى 3 أيام عمل. للأمور العاجلة يُنصح بالتواصل عبر الهاتف في مواعيد العمل الرسمية من الأحد إلى الخميس بين الساعة 9 صباحاً و3 مساءً.
+    </div>
+  </div>
+
+</div><!-- /faq -->
+
+<!-- FOOTER -->
+<footer>جميع الحقوق محفوظة - كلية التربية جامعة دمياط 2025</footer>
+
+<script>
+  // ===== SUBJECT TAGS =====
+  let selectedSubject = '';
+
+  document.querySelectorAll('.tag').forEach(tag => {
+    tag.addEventListener('click', function () {
+      document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      selectedSubject = this.dataset.val;
+      clearError('subject');
+    });
+  });
+
+  // ===== CHAR COUNTER =====
+  function countChars() {
+    const msg = document.getElementById('message');
+    const counter = document.getElementById('charCount');
+    const len = msg.value.length;
+    counter.textContent = `${len} / 500`;
+    counter.classList.toggle('warn', len > 450);
+    if (len > 0) clearError('message');
+  }
+
+  // ===== ERROR HELPERS =====
+  function showError(id) {
+    document.getElementById('err-' + id).style.display = 'block';
+    const el = document.getElementById(id);
+    if (el) el.classList.add('invalid');
+  }
+
+  function clearError(id) {
+    const errEl = document.getElementById('err-' + id);
+    if (errEl) errEl.style.display = 'none';
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('invalid');
+  }
+
+  // Live clear on typing
+  ['name','email','phone','message'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => clearError(id));
+  });
+
+  // ===== VALIDATE =====
+  function validate() {
+    let ok = true;
+    const name  = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const msg   = document.getElementById('message').value.trim();
+
+    if (!name)  { showError('name');  ok = false; } else clearError('name');
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('email'); ok = false;
+    } else clearError('email');
+
+    if (phone && !/^01[0-9]{9}$/.test(phone)) {
+      showError('phone'); ok = false;
+    } else clearError('phone');
+
+    if (!selectedSubject) { showError('subject'); ok = false; } else clearError('subject');
+
+    if (!msg)  { showError('message'); ok = false; } else clearError('message');
+
+    return ok;
+  }
+
+  // ===== SEND =====
+  function sendMessage() {
+    if (!validate()) return;
+
+    const btn     = document.getElementById('submitBtn');
+    const spinner = document.getElementById('spinner');
+    const btnText = document.getElementById('btnText');
+
+    // Simulate sending
+    btn.disabled = true;
+    spinner.style.display = 'block';
+    btnText.textContent = 'جاري الإرسال...';
+
+    setTimeout(() => {
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('successOverlay').classList.add('show');
+    }, 1800);
+  }
+
+  // ===== RESET =====
+  function resetForm() {
+    document.getElementById('formContent').style.display = 'block';
+    document.getElementById('successOverlay').classList.remove('show');
+
+    // Reset fields
+    ['name','email','phone','message'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.value = ''; el.classList.remove('invalid'); }
+    });
+    document.getElementById('role').value = '';
+    document.getElementById('copyMe').checked = false;
+    document.getElementById('charCount').textContent = '0 / 500';
+    document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+    selectedSubject = '';
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = false;
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('btnText').textContent = '📨 إرسال الرسالة';
+  }
+
+  // ===== FAQ ACCORDION =====
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>

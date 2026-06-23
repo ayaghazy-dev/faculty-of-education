@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - Aya </title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 1. إبداع الخلفية المتحركة (تدرج كحلي انسيابي) */
+            background: linear-gradient(-45deg, #0a192f, #112240, #1a365d, #0d2a50);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            overflow: hidden;
+        }
+
+        /* حركة الخلفية */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* تنسيق صندوق تسجيل الدخول الزجاجي */
+        .login-box {
+            background: rgba(255, 255, 255, 0.05); /* شفافية بيضاء خفيفة */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* إطار زجاجي رفيع */
+            backdrop-filter: blur(10px); /* تأثير التغبيش */
+            -webkit-backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px); }
+        }
+
+        h2 {
+            color: white; /* أبيض */
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 28px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.9); /* أبيض مائل للشفافية قليلاً للحقول */
+            border: 2px solid transparent;
+            border-radius: 10px;
+            outline: none;
+            color: #0a192f; /* كحلي غامق للكتابة */
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        /* تأثير عند الضغط على الحقل */
+        .input-group input:focus {
+            border-color: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* تنسيق الأيقونات (تمت إضافتها لمظهر احترافي) */
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0a192f;
+            opacity: 0.7;
+            font-size: 18px;
+        }
+
+        input::placeholder {
+            color: #777;
+        }
+
+        /* 3. تنسيق زر التسجيل (كحلي ملكي وأبيض) */
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background-color: white; /* الخلفية بيضاء */
+            color: #0a192f; /* النص كحلي غامق */
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-login:hover {
+            background-color: #f0f0f0; /* رمادي فاتح جداً عند التمرير */
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(-1px);
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* تنسيق لحالة الخطأ */
+        .input-error {
+            border-color: #ff4d4d !important;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h2>تسجيل الدخول</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <span class="input-icon">&#128100;</span>
+                <input type="text" id="username" placeholder="اسم المستخدم" required>
+            </div>
+            <div class="input-group">
+                <span class="input-icon">&#128274;</span>
+                <input type="password" id="password" placeholder="كلمة المرور" required>
+            </div>
+            <button type="submit" class="btn-login">دخول</button>
+        </form>
+        <div class="footer-links">
+            <p><a href="#">هل نسيت كلمة المرور؟</a></p>
+            <p>ليس لديك حساب؟ <a href="#">إنشاء حساب</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            // منع الفورم من إرسال البيانات بشكل تلقائي وإعادة تحميل الصفحة
+            event.preventDefault();
+
+            // الحصول على القيم المدخلة
+            var user = document.getElementById('username').value;
+            var pass = document.getElementById('password').value;
+            
+            // تهيئة الحقول (إزالة التنسيقات السابقة للخطأ)
+            document.getElementById('username').classList.remove('input-error');
+            document.getElementById('password').classList.remove('input-error');
+
+            // --- التحقق من أن الحقول مش فاضية فقط ---
+            if (user.trim() === '' || pass.trim() === '') {
+                alert('من فضلك ادخل اسم المستخدم وكلمة المرور.');
+                if (user.trim() === '') document.getElementById('username').classList.add('input-error');
+                if (pass.trim() === '') document.getElementById('password').classList.add('input-error');
+            } else {
+                alert('تم تسجيل الدخول بنجاح! جاري تحويلك...');
+                window.location.href = 'Edu.html';
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>استبيان الطالب - كلية التربية جامعة دمياط</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #1a1a6e;
+      --navy-light: #22227a;
+      --gold: #c8a84b;
+      --white: #ffffff;
+      --light-gray: #f0f0f0;
+      --mid-gray: #e0e0e0;
+      --text-dark: #222;
+      --error: #c0392b;
+      --success: #27ae60;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: var(--light-gray);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 80px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .nav-logos {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--navy);
+      font-weight: bold;
+      text-align: center;
+      border: 2px solid var(--gold);
+      overflow: hidden;
+    }
+
+    .logo-circle svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .nav-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* ===== HERO STRIP ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 60%, #2e2e9a 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 36px 20px 28px;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .page-hero h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .page-hero p {
+      font-size: 15px;
+      opacity: 0.85;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container {
+      background: var(--white);
+      padding: 18px 40px 10px;
+      border-bottom: 1px solid var(--mid-gray);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--navy);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: var(--mid-gray);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--navy);
+      border-radius: 10px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      flex: 1;
+      max-width: 820px;
+      width: 100%;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 30px 35px;
+      margin-bottom: 24px;
+      border: 1px solid var(--mid-gray);
+      box-shadow: 0 2px 10px rgba(26,26,110,0.07);
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ===== FORM FIELDS ===== */
+    .field-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    label .required {
+      color: var(--error);
+      margin-right: 3px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--mid-gray);
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fafafa;
+      color: var(--text-dark);
+      direction: rtl;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(26,26,110,0.1);
+      background: var(--white);
+    }
+
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      margin-top: 4px;
+      display: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    /* ===== RADIO / CHECKBOX GROUPS ===== */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .option-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--mid-gray);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      font-size: 14px;
+    }
+
+    .option-card:hover {
+      border-color: var(--navy);
+      background: #f0f0fa;
+    }
+
+    .option-card input[type="radio"],
+    .option-card input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      accent-color: var(--navy);
+      cursor: pointer;
+    }
+
+    .option-card.selected {
+      border-color: var(--navy);
+      background: #e8e8f8;
+    }
+
+    /* ===== RATING STARS ===== */
+    .star-rating {
+      display: flex;
+      gap: 6px;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+
+    .star-rating input {
+      display: none;
+    }
+
+    .star-rating label {
+      font-size: 30px;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.15s;
+      margin: 0;
+    }
+
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: var(--gold);
+    }
+
+    .rating-text {
+      font-size: 13px;
+      color: #555;
+      margin-top: 6px;
+      min-height: 18px;
+    }
+
+    /* ===== SCALE SLIDER ===== */
+    .scale-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--navy);
+      height: 6px;
+      cursor: pointer;
+      direction: ltr;
+    }
+
+    .scale-value {
+      background: var(--navy);
+      color: var(--white);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    /* ===== NAVIGATION BUTTONS ===== */
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      padding: 11px 30px;
+      border: none;
+      border-radius: 7px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #2a2a8e;
+      box-shadow: 0 4px 12px rgba(26,26,110,0.3);
+    }
+
+    .btn-secondary {
+      background: var(--mid-gray);
+      color: var(--navy);
+    }
+
+    .btn-secondary:hover {
+      background: #c8c8c8;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .btn-success:hover {
+      background: #229954;
+      box-shadow: 0 4px 12px rgba(39,174,96,0.3);
+    }
+
+    /* ===== SUCCESS MESSAGE ===== */
+    .success-screen {
+      display: none;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 60px 35px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(26,26,110,0.07);
+      border: 1px solid var(--mid-gray);
+    }
+
+    .success-screen.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .success-icon {
+      font-size: 72px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .success-screen h2 {
+      font-size: 26px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .success-screen p {
+      color: #555;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .summary-box {
+      background: var(--light-gray);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 24px auto 0;
+      max-width: 500px;
+      text-align: right;
+    }
+
+    .summary-box h3 {
+      color: var(--navy);
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--mid-gray);
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .summary-item .s-key { color: #555; }
+    .summary-item .s-val { color: var(--navy); font-weight: 600; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    @media (max-width: 600px) {
+      .field-row, .options-grid { grid-template-columns: 1fr; }
+      .nav-title { font-size: 18px; }
+      main { padding: 0 12px; }
+      .section { padding: 20px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logos">
+    <div class="logo-circle">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" fill="#1a1a6e"/>
+        <text x="20" y="26" text-anchor="middle" font-size="13" fill="white" font-weight="bold">جد</text>
+      </svg>
+    </div>
+    <div class="logo-circle">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" fill="#1a1a6e"/>
+        <polygon points="20,8 30,28 10,28" fill="white"/>
+        <text x="20" y="37" text-anchor="middle" font-size="7" fill="white">Damietta</text>
+      </svg>
+    </div>
+  </div>
+  <div class="nav-title">كلية التربية ـ جامعة دمياط</div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>📋 استبيان تقييم الطالب</h1>
+  <p>يرجى تعبئة الاستبيان بدقة — مشاركتك تساعدنا في تطوير العملية التعليمية</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-container">
+  <div class="progress-label">
+    <span id="progressText">القسم 1 من 4</span>
+    <span id="progressPercent">0%</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- SECTION 1: Personal Info -->
+  <div class="section active" id="sec1">
+    <div class="section-title">
+      <div class="section-icon">١</div>
+      البيانات الشخصية
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label>الاسم الكامل <span class="required">*</span></label>
+        <input type="text" id="fullName" placeholder="أدخل اسمك الكامل" />
+        <div class="field-error" id="err-fullName">هذا الحقل مطلوب</div>
+      </div>
+      <div class="field-group">
+        <label>رقم الجلوس / كود الطالب <span class="required">*</span></label>
+        <input type="text" id="studentId" placeholder="مثال: 2021XXXX" />
+        <div class="field-error" id="err-studentId">هذا الحقل مطلوب</div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label>الكلية / التخصص <span class="required">*</span></label>
+        <select id="department">
+          <option value="">-- اختر التخصص --</option>
+          <option>رياضيات</option>
+          <option>علوم</option>
+          <option>لغة عربية</option>
+          <option>لغة إنجليزية</option>
+          <option>تاريخ</option>
+          <option>جغرافيا</option>
+          <option>تكنولوجيا التعليم</option>
+        </select>
+        <div class="field-error" id="err-department">يرجى اختيار التخصص</div>
+      </div>
+      <div class="field-group">
+        <label>الفرقة الدراسية <span class="required">*</span></label>
+        <select id="year">
+          <option value="">-- اختر الفرقة --</option>
+          <option>الأولى</option>
+          <option>الثانية</option>
+          <option>الثالثة</option>
+          <option>الرابعة</option>
+        </select>
+        <div class="field-error" id="err-year">يرجى اختيار الفرقة</div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>البريد الإلكتروني</label>
+      <input type="email" id="email" placeholder="example@student.du.edu.eg" />
+      <div class="field-error" id="err-email">البريد الإلكتروني غير صحيح</div>
+    </div>
+
+    <div class="field-group">
+      <label>النوع <span class="required">*</span></label>
+      <div class="options-grid">
+        <label class="option-card">
+          <input type="radio" name="gender" value="ذكر" /> ذكر
+        </label>
+        <label class="option-card">
+          <input type="radio" name="gender" value="أنثى" /> أنثى
+        </label>
+      </div>
+      <div class="field-error" id="err-gender">يرجى تحديد النوع</div>
+    </div>
+
+    <div class="btn-row">
+      <div></div>
+      <button class="btn btn-primary" onclick="nextSection(1)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Academic Evaluation -->
+  <div class="section" id="sec2">
+    <div class="section-title">
+      <div class="section-icon">٢</div>
+      تقييم المقررات والأساتذة
+    </div>
+
+    <div class="field-group">
+      <label>كيف تقيّم جودة المحتوى التعليمي بشكل عام؟ <span class="required">*</span></label>
+      <div class="star-rating" id="contentRating">
+        <input type="radio" name="contentRating" id="cr5" value="5"/><label for="cr5">★</label>
+        <input type="radio" name="contentRating" id="cr4" value="4"/><label for="cr4">★</label>
+        <input type="radio" name="contentRating" id="cr3" value="3"/><label for="cr3">★</label>
+        <input type="radio" name="contentRating" id="cr2" value="2"/><label for="cr2">★</label>
+        <input type="radio" name="contentRating" id="cr1" value="1"/><label for="cr1">★</label>
+      </div>
+      <div class="rating-text" id="contentRatingText">اختر تقييمك</div>
+      <div class="field-error" id="err-contentRating">يرجى تحديد تقييمك</div>
+    </div>
+
+    <div class="field-group">
+      <label>كيف تقيّم أسلوب أعضاء هيئة التدريس؟ <span class="required">*</span></label>
+      <div class="star-rating" id="teacherRating">
+        <input type="radio" name="teacherRating" id="tr5" value="5"/><label for="tr5">★</label>
+        <input type="radio" name="teacherRating" id="tr4" value="4"/><label for="tr4">★</label>
+        <input type="radio" name="teacherRating" id="tr3" value="3"/><label for="tr3">★</label>
+        <input type="radio" name="teacherRating" id="tr2" value="2"/><label for="tr2">★</label>
+        <input type="radio" name="teacherRating" id="tr1" value="1"/><label for="tr1">★</label>
+      </div>
+      <div class="rating-text" id="teacherRatingText">اختر تقييمك</div>
+      <div class="field-error" id="err-teacherRating">يرجى تحديد تقييمك</div>
+    </div>
+
+    <div class="field-group">
+      <label>ما مدى صعوبة المناهج الدراسية الحالية؟</label>
+      <div class="scale-wrapper">
+        <span>سهل</span>
+        <input type="range" id="difficultyScale" min="1" max="10" value="5"
+               oninput="document.getElementById('diffVal').textContent=this.value" />
+        <span>صعب جداً</span>
+        <div class="scale-value" id="diffVal">5</div>
+      </div>
+      <div class="scale-labels">
+        <span>1</span><span>5</span><span>10</span>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>هل تجد دعماً كافياً من الأساتذة خارج وقت المحاضرات؟ <span class="required">*</span></label>
+      <div class="options-grid">
+        <label class="option-card"><input type="radio" name="support" value="نعم دائماً" /> نعم دائماً</label>
+        <label class="option-card"><input type="radio" name="support" value="أحياناً" /> أحياناً</label>
+        <label class="option-card"><input type="radio" name="support" value="نادراً" /> نادراً</label>
+        <label class="option-card"><input type="radio" name="support" value="لا أبداً" /> لا أبداً</label>
+      </div>
+      <div class="field-error" id="err-support">يرجى تحديد إجابة</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevSection(2)">→ السابق</button>
+      <button class="btn btn-primary" onclick="nextSection(2)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Services & Facilities -->
+  <div class="section" id="sec3">
+    <div class="section-title">
+      <div class="section-icon">٣</div>
+      الخدمات والمرافق
+    </div>
+
+    <div class="field-group">
+      <label>ما الخدمات التي تستخدمها في الكلية؟ (يمكن اختيار أكثر من إجابة)</label>
+      <div class="options-grid">
+        <label class="option-card"><input type="checkbox" name="services" value="المكتبة" /> المكتبة</label>
+        <label class="option-card"><input type="checkbox" name="services" value="الإنترنت" /> الإنترنت المجاني</label>
+        <label class="option-card"><input type="checkbox" name="services" value="المعامل" /> المعامل والمختبرات</label>
+        <label class="option-card"><input type="checkbox" name="services" value="الأنشطة" /> الأنشطة الطلابية</label>
+        <label class="option-card"><input type="checkbox" name="services" value="الإرشاد" /> الإرشاد الأكاديمي</label>
+        <label class="option-card"><input type="checkbox" name="services" value="الملعب" /> الملاعب الرياضية</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>كيف تقيّم جودة مرافق الكلية بشكل عام؟ <span class="required">*</span></label>
+      <div class="star-rating" id="facilityRating">
+        <input type="radio" name="facilityRating" id="fr5" value="5"/><label for="fr5">★</label>
+        <input type="radio" name="facilityRating" id="fr4" value="4"/><label for="fr4">★</label>
+        <input type="radio" name="facilityRating" id="fr3" value="3"/><label for="fr3">★</label>
+        <input type="radio" name="facilityRating" id="fr2" value="2"/><label for="fr2">★</label>
+        <input type="radio" name="facilityRating" id="fr1" value="1"/><label for="fr1">★</label>
+      </div>
+      <div class="rating-text" id="facilityRatingText">اختر تقييمك</div>
+      <div class="field-error" id="err-facilityRating">يرجى تحديد تقييمك</div>
+    </div>
+
+    <div class="field-group">
+      <label>هل تستخدم المنصة الإلكترونية للكلية؟ <span class="required">*</span></label>
+      <div class="options-grid">
+        <label class="option-card"><input type="radio" name="platform" value="نعم بانتظام" /> نعم بانتظام</label>
+        <label class="option-card"><input type="radio" name="platform" value="أحياناً" /> أحياناً</label>
+        <label class="option-card"><input type="radio" name="platform" value="نادراً" /> نادراً</label>
+        <label class="option-card"><input type="radio" name="platform" value="لا أستخدمها" /> لا أستخدمها</label>
+      </div>
+      <div class="field-error" id="err-platform">يرجى تحديد إجابة</div>
+    </div>
+
+    <div class="field-group">
+      <label>مستوى رضاك العام عن الكلية</label>
+      <div class="scale-wrapper">
+        <span>غير راضٍ</span>
+        <input type="range" id="satisfactionScale" min="1" max="10" value="7"
+               oninput="document.getElementById('satVal').textContent=this.value" />
+        <span>راضٍ جداً</span>
+        <div class="scale-value" id="satVal">7</div>
+      </div>
+      <div class="scale-labels">
+        <span>1</span><span>5</span><span>10</span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevSection(3)">→ السابق</button>
+      <button class="btn btn-primary" onclick="nextSection(3)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Suggestions -->
+  <div class="section" id="sec4">
+    <div class="section-title">
+      <div class="section-icon">٤</div>
+      الملاحظات والمقترحات
+    </div>
+
+    <div class="field-group">
+      <label>ما أبرز التحديات التي تواجهها كطالب في الكلية؟</label>
+      <div class="options-grid">
+        <label class="option-card"><input type="checkbox" name="challenges" value="ضغط المواد" /> ضغط المواد الدراسية</label>
+        <label class="option-card"><input type="checkbox" name="challenges" value="ضعف الإنترنت" /> ضعف الإنترنت</label>
+        <label class="option-card"><input type="checkbox" name="challenges" value="المواصلات" /> صعوبة المواصلات</label>
+        <label class="option-card"><input type="checkbox" name="challenges" value="الجداول" /> مشكلات في الجداول</label>
+        <label class="option-card"><input type="checkbox" name="challenges" value="التواصل" /> ضعف التواصل مع الإدارة</label>
+        <label class="option-card"><input type="checkbox" name="challenges" value="أخرى" /> أخرى</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>ما أهم مقترحاتك لتطوير الكلية؟ <span class="required">*</span></label>
+      <textarea id="suggestions" placeholder="اكتب مقترحاتك هنا..."></textarea>
+      <div class="field-error" id="err-suggestions">يرجى كتابة مقترح واحد على الأقل</div>
+    </div>
+
+    <div class="field-group">
+      <label>هل تنصح زملاءك بالالتحاق بهذه الكلية؟ <span class="required">*</span></label>
+      <div class="options-grid">
+        <label class="option-card"><input type="radio" name="recommend" value="نعم بالتأكيد" /> نعم بالتأكيد</label>
+        <label class="option-card"><input type="radio" name="recommend" value="ربما" /> ربما</label>
+        <label class="option-card"><input type="radio" name="recommend" value="لا أعلم" /> لا أعلم</label>
+        <label class="option-card"><input type="radio" name="recommend" value="لا" /> لا</label>
+      </div>
+      <div class="field-error" id="err-recommend">يرجى تحديد إجابة</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevSection(4)">→ السابق</button>
+      <button class="btn btn-success" onclick="submitSurvey()">✔ إرسال الاستبيان</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="successScreen">
+    <span class="success-icon">🎓</span>
+    <h2>شكراً لمشاركتك!</h2>
+    <p>تم إرسال استبيانك بنجاح.<br/>مشاركتك تساعدنا في تحسين مستوى الخدمات والعملية التعليمية في كلية التربية.</p>
+    <div class="summary-box">
+      <h3>📌 ملخص إجاباتك</h3>
+      <div id="summaryContent"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>جميع الحقوق محفوظة - كلية التربية جامعة دمياط 2025</footer>
+
+<script>
+  // ==============================
+  // STATE
+  // ==============================
+  let currentSection = 1;
+  const totalSections = 4;
+
+  const ratingLabels = {
+    1: 'ضعيف جداً ⭐',
+    2: 'ضعيف ⭐⭐',
+    3: 'متوسط ⭐⭐⭐',
+    4: 'جيد جداً ⭐⭐⭐⭐',
+    5: 'ممتاز ⭐⭐⭐⭐⭐'
+  };
+
+  // ==============================
+  // PROGRESS BAR
+  // ==============================
+  function updateProgress(section) {
+    const pct = Math.round(((section - 1) / totalSections) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressPercent').textContent = pct + '%';
+    document.getElementById('progressText').textContent = `القسم ${section} من ${totalSections}`;
+  }
+
+  // ==============================
+  // SECTION NAVIGATION
+  // ==============================
+  function showSection(n) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('sec' + n).classList.add('active');
+    currentSection = n;
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextSection(from) {
+    if (validateSection(from)) showSection(from + 1);
+  }
+
+  function prevSection(from) {
+    showSection(from - 1);
+  }
+
+  // ==============================
+  // OPTION CARD TOGGLING
+  // ==============================
+  document.querySelectorAll('.option-card').forEach(card => {
+    card.addEventListener('click', function () {
+      const input = this.querySelector('input');
+      if (input.type === 'radio') {
+        // Deselect all in same group
+        document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+          r.closest('.option-card').classList.remove('selected');
+        });
+        this.classList.add('selected');
+        input.checked = true;
+      } else {
+        input.checked = !input.checked;
+        this.classList.toggle('selected', input.checked);
+      }
+    });
+  });
+
+  // ==============================
+  // STAR RATING TEXT
+  // ==============================
+  function setupStarRating(name, textId) {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+      input.addEventListener('change', () => {
+        document.getElementById(textId).textContent = ratingLabels[input.value];
+      });
+    });
+  }
+
+  setupStarRating('contentRating', 'contentRatingText');
+  setupStarRating('teacherRating', 'teacherRatingText');
+  setupStarRating('facilityRating', 'facilityRatingText');
+
+  // ==============================
+  // VALIDATION
+  // ==============================
+  function showError(id, msg) {
+    const el = document.getElementById('err-' + id);
+    if (el) { el.textContent = msg || el.textContent; el.style.display = 'block'; }
+    const input = document.getElementById(id);
+    if (input) input.classList.add('invalid');
+  }
+
+  function clearError(id) {
+    const el = document.getElementById('err-' + id);
+    if (el) el.style.display = 'none';
+    const input = document.getElementById(id);
+    if (input) input.classList.remove('invalid');
+  }
+
+  // Live validation on input
+  ['fullName','studentId','email','suggestions'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => clearError(id));
+  });
+  ['department','year'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => clearError(id));
+  });
+
+  function validateSection(n) {
+    let valid = true;
+
+    if (n === 1) {
+      const fn = document.getElementById('fullName').value.trim();
+      const sid = document.getElementById('studentId').value.trim();
+      const dept = document.getElementById('department').value;
+      const yr = document.getElementById('year').value;
+      const email = document.getElementById('email').value.trim();
+      const gender = document.querySelector('input[name="gender"]:checked');
+
+      if (!fn) { showError('fullName'); valid = false; } else clearError('fullName');
+      if (!sid) { showError('studentId'); valid = false; } else clearError('studentId');
+      if (!dept) { showError('department'); valid = false; } else clearError('department');
+      if (!yr) { showError('year'); valid = false; } else clearError('year');
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('email', 'البريد الإلكتروني غير صحيح'); valid = false;
+      } else clearError('email');
+      if (!gender) { showError('gender'); valid = false; } else clearError('gender');
+    }
+
+    if (n === 2) {
+      const cr = document.querySelector('input[name="contentRating"]:checked');
+      const tr = document.querySelector('input[name="teacherRating"]:checked');
+      const sup = document.querySelector('input[name="support"]:checked');
+      if (!cr) { showError('contentRating'); valid = false; } else clearError('contentRating');
+      if (!tr) { showError('teacherRating'); valid = false; } else clearError('teacherRating');
+      if (!sup) { showError('support'); valid = false; } else clearError('support');
+    }
+
+    if (n === 3) {
+      const fr = document.querySelector('input[name="facilityRating"]:checked');
+      const plt = document.querySelector('input[name="platform"]:checked');
+      if (!fr) { showError('facilityRating'); valid = false; } else clearError('facilityRating');
+      if (!plt) { showError('platform'); valid = false; } else clearError('platform');
+    }
+
+    if (n === 4) {
+      const sug = document.getElementById('suggestions').value.trim();
+      const rec = document.querySelector('input[name="recommend"]:checked');
+      if (!sug) { showError('suggestions'); valid = false; } else clearError('suggestions');
+      if (!rec) { showError('recommend'); valid = false; } else clearError('recommend');
+    }
+
+    return valid;
+  }
+
+  // ==============================
+  // SUBMIT
+  // ==============================
+  function submitSurvey() {
+    if (!validateSection(4)) return;
+
+    // Collect data
+    const data = {
+      name: document.getElementById('fullName').value.trim(),
+      id: document.getElementById('studentId').value.trim(),
+      dept: document.getElementById('department').value,
+      year: document.getElementById('year').value,
+      gender: document.querySelector('input[name="gender"]:checked')?.value || '-',
+      contentRating: document.querySelector('input[name="contentRating"]:checked')?.value || '-',
+      teacherRating: document.querySelector('input[name="teacherRating"]:checked')?.value || '-',
+      difficulty: document.getElementById('difficultyScale').value,
+      support: document.querySelector('input[name="support"]:checked')?.value || '-',
+      facilityRating: document.querySelector('input[name="facilityRating"]:checked')?.value || '-',
+      satisfaction: document.getElementById('satisfactionScale').value,
+      suggest: document.getElementById('suggestions').value.trim(),
+      recommend: document.querySelector('input[name="recommend"]:checked')?.value || '-',
+    };
+
+    // Build summary HTML
+    const items = [
+      ['الاسم', data.name],
+      ['التخصص', data.dept],
+      ['الفرقة', data.year],
+      ['تقييم المحتوى', `${data.contentRating}/5 ⭐`],
+      ['تقييم الأساتذة', `${data.teacherRating}/5 ⭐`],
+      ['مستوى الرضا العام', `${data.satisfaction}/10`],
+      ['التنصية بالكلية', data.recommend],
+    ];
+
+    document.getElementById('summaryContent').innerHTML = items.map(([k, v]) =>
+      `<div class="summary-item"><span class="s-key">${k}</span><span class="s-val">${v}</span></div>`
+    ).join('');
+
+    // Hide sections, show success
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('successScreen').classList.add('active');
+    document.getElementById('progressBar').style.width = '100%';
+    document.getElementById('progressPercent').textContent = '100%';
+    document.getElementById('progressText').textContent = 'تم الإرسال ✔';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Log to console (would normally POST to server)
+    console.log('Survey submitted:', data);
+  }
+
+  // Init
+  updateProgress(1);
+</script>
+</body>
+</html>
